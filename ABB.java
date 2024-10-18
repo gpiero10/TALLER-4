@@ -96,9 +96,10 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
                     actual = actual.hijomayor;
                 }else {
                     return null;
-                }}}
-        else{return null;}
-        return actual.padre;
+                }
+            }
+            return actual.padre;
+        }else{return null;}
     }
 
     public boolean pertenece(T elem){
