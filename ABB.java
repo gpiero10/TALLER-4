@@ -55,31 +55,38 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
             this.raiz.hijomayor = null;
             this.maximo = elem;
             this.maximo = elem;
+            this.cardinal += 1;
             return;
-        } else{
+        } else {
             Nodo anterior = actual.padre;
-            while(actual != null){
-                if(elem.compareTo(actual.valor)<0){
-                    actual = actual.hijomenor;
-                } else if(elem.compareTo(actual.valor)>0){
-                    actual = actual.hijomayor;
-                }else {
+            if(this.pertenece(elem)==false){
+                while(actual != null){
+                    if(elem.compareTo(actual.valor)<0){
+                        actual = actual.hijomenor;
+                    } else if(elem.compareTo(actual.valor)>0){
+                        actual = actual.hijomayor;
+                    }else {
+                        return;
+                    }
+                Nodo nuevo = new Nodo(elem);
+                nuevo.padre = anterior;
+        
+                if(elem.compareTo(anterior.valor)<0){
+                    anterior.hijomenor = nuevo;
+                } else if(elem.compareTo(anterior.valor)>0){
+                    anterior.hijomayor = nuevo;
+                } else {
                     return;
                 }
-        }
-
-        Nodo nuevo = new Nodo(elem);
-        nuevo.padre = anterior;
-
-        if(elem.compareTo(anterior.valor)<0){
-            anterior.hijomenor = nuevo;
-        } else if(elem.compareTo(anterior.valor)>0){
-            anterior.hijomayor = nuevo;
-        } else {
-            return;
-        }
+                this.cardinal += 1;
+                }
+            } else {
+                return;
+            }
         }
     }
+
+
 
     public boolean pertenece(T elem){
         Nodo actual = this.raiz;
@@ -94,6 +101,9 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         }
         return false;
     }
+
+
+
     public void eliminar(T elem){
         throw new UnsupportedOperationException("No implementada aun");
     }
