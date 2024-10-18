@@ -86,7 +86,20 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         }
     }
 
-
+    private Nodo buscarpadre(T elem){
+        Nodo actual = this.raiz;
+        if (this.pertenece(elem)==false){    
+            while(actual != null){
+                if(elem.compareTo(actual.valor)<0){
+                    actual = actual.hijomenor;
+                } else if(elem.compareTo(actual.valor)>0){
+                    actual = actual.hijomayor;
+                }else {
+                    return null;
+                }}}
+        else{return null;}
+        return actual.padre;
+    }
 
     public boolean pertenece(T elem){
         Nodo actual = this.raiz;
