@@ -50,23 +50,50 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         Nodo actual = this.raiz;
         if (this.cardinal == 0){
             this.raiz = new Nodo(elem);
-            this.raiz.izquierda = null;
-            this.raiz.derecha = null;
+            this.raiz.padre = null;
+            this.raiz.hijomenor = null;
+            this.raiz.hijomayor = null;
             this.maximo = elem;
             this.maximo = elem;
-        while(elem.compareTo(actual.valor)<0){
-            actual
+            return;
+        } else{
+            Nodo anterior = actual.padre;
+            while(actual != null){
+                if(elem.compareTo(actual.valor)<0){
+                    actual = actual.hijomenor;
+                } else if(elem.compareTo(actual.valor)>0){
+                    actual = actual.hijomayor;
+                }else {
+                    return;
+                }
         }
 
+        Nodo nuevo = new Nodo(elem);
+        nuevo.padre = anterior;
 
-
-        
+        if(elem.compareTo(anterior.valor)<0){
+            anterior.hijomenor = nuevo;
+        } else if(elem.compareTo(anterior.valor)>0){
+            anterior.hijomayor = nuevo;
+        } else {
+            return;
+        }
+        }
     }
 
     public boolean pertenece(T elem){
-        throw new UnsupportedOperationException("No implementada aun");
+        Nodo actual = this.raiz;
+        while(actual != null){
+            if(elem.compareTo(actual.valor)<0){
+                actual = actual.hijomenor;
+            } else if(elem.compareTo(actual.valor)>0){
+                actual = actual.hijomayor;
+            }else {
+                return true;
+            }
+        }
+        return false;
     }
-
     public void eliminar(T elem){
         throw new UnsupportedOperationException("No implementada aun");
     }
