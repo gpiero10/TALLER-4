@@ -33,23 +33,29 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
     public T minimo(){
         Nodo minimo = this.raiz;
         Nodo anterior = null;
-        
-        while(minimo != null){
-            anterior = minimo;
-            minimo = minimo.hijomenor;
+        if (this.cardinal == 0){
+            return null;
+        }else{
+            while(minimo != null){
+                anterior = minimo;
+                minimo = minimo.hijomenor;
+            }
+            return anterior.valor;
         }
-        return anterior.valor;
     }
 
     public T maximo(){
         Nodo maximo = this.raiz;
         Nodo anterior = null;
-        
-        while(maximo != null){
-            anterior = maximo;
-            maximo = maximo.hijomayor;
+        if(this.cardinal == 0){
+            return null;
+        }else{
+            while(maximo != null){
+                anterior = maximo;
+                maximo = maximo.hijomayor;
+            }
+            return anterior.valor;
         }
-        return anterior.valor;
     }
 
     public void insertar(T elem){
@@ -74,12 +80,9 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
                 }    
                 this.cardinal += 1;
 
-            } else {
-                return;
-            }  
-        } 
+            } 
+        }
     }
-
 
     private Nodo buscarposiblepadre(T elem){
         Nodo actual = this.raiz;
@@ -99,19 +102,23 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
             return null;
         }
     }
-
+    
     public boolean pertenece(T elem){
         Nodo actual = this.raiz;
-        while(actual != null){
-            if(elem.compareTo(actual.valor)<0){
-                actual = actual.hijomenor;
-            } else if(elem.compareTo(actual.valor)>0){
-                actual = actual.hijomayor;
-            }else {
-                return true;
+        if(cardinal==0){
+            return false;
+        }else{
+            while(actual != null){
+                if(elem.compareTo(actual.valor)<0){
+                    actual = actual.hijomenor;
+                } else if(elem.compareTo(actual.valor)>0){
+                    actual = actual.hijomayor;
+                }else if(elem.compareTo(actual.valor)==0){
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
     
     
@@ -187,7 +194,6 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
         }
 
     }
-    
 
     private void reemplazo(Nodo e, Nodo r){
         if (r.valor.compareTo(e.valor)>0){
@@ -209,7 +215,7 @@ public class ABB<T extends Comparable<T>> implements Conjunto<T> {
                 r.padre.hijomayor = r.hijomenor;
             }
         }   
-    } 
+    }  
 
 
 
